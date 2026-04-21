@@ -100,4 +100,44 @@ describe("Função Cadastrar Produto", () => {
     });
 });
 
+describe("Função Listar Produtos", () => {
+    beforeEach(() => {
+        produtos.length = 0;
+    }); //limpando o array antes de cada teste , garantido que cada test comece com o array vazio para não gerar conflito
+
+    test("deve retornar lista vazia quando não houver produtos cadastrados", () => {
+        const resultado = listarProdutos();
+
+        expect(resultado).toEqual([]); //comparando o contéudo
+        expect(resultado).toHaveLength(0); // verificar o tamanho do array 
+    });
+
+    test("deve retornar a lista com os produtos cadastrados", () => {
+        const produto1 = {
+            id: 1,
+            nome: "Bola de Vôlei",
+            preco: 80,
+            estoque: 15,
+            categoria: "Esporte"
+        };
+
+        const produto2 = {
+            id: 2,
+            nome: "Chuteira",
+            preco: 250,
+            estoque: 8,
+            categoria: "Esporte"
+        };
+
+        cadastrarProduto(produto1); //aqui estamos cadastrando os produtos
+        cadastrarProduto(produto2);
+
+        const resultado = listarProdutos(); 
+
+        expect(resultado).toHaveLength(2); // verificando a tamanho do array 
+        expect(resultado).toContainEqual(produto1); //verificando se os produtos foram armazenados no array
+        expect(resultado).toContainEqual(produto2);
+    });
+});
+
 

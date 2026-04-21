@@ -1,4 +1,4 @@
-const { calcularSubtotal } = require('./carrinho');
+const { calcularSubtotal } = require('./carrinho.js');
 
 const CUPONS_VALIDOS = {
   "DEZOFF": 0.10,
