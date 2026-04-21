@@ -19,7 +19,7 @@ describe("Função Cadastrar Produto", () => {
 
         const resultado = cadastrarProduto(produto);
 
-        //verificar o retorno
+        //comparando o contéudo
         expect(resultado).toEqual(produto);
 
         //verificar se o array contem os elementos ou seja se foi armazenado
@@ -67,7 +67,7 @@ describe("Função Cadastrar Produto", () => {
 
         const resultado = cadastrarProduto(produto);
 
-        expect(resultado).toEqual(produto); //verificando o retorno
+        expect(resultado).toEqual(produto); //comparando o contéudo
         expect(produtos).toContainEqual(produto); //verificando se o array contém um objeto com mesmos valores
     });
 
@@ -139,26 +139,61 @@ describe("Função Listar Produtos", () => {
         expect(resultado).toContainEqual(produto2);
     });
 
-    // // Testa se os dados retornados possuem as propriedades corretas
-    // test("deve manter estrutura dos produtos", () => {
-    //     const produto = {
-    //         id: 3,
-    //         nome: "Caneleira",
-    //         preco: 50,
-    //         estoque: 20,
-    //         categoria: "Esporte"
-    //     };
+    // Testa se os dados retornados possuem as propriedades corretas
+    // Verificar integridade dos dados
+    test("deve manter estrutura dos produtos", () => {
+        const produto = {
+            id: 3,
+            nome: "Caneleira",
+            preco: 50,
+            estoque: 20,
+            categoria: "Esporte"
+        };
 
-    //     cadastrarProduto(produto);
+        cadastrarProduto(produto);
 
-    //     const resultado = listarProdutos();
+        const resultado = listarProdutos();
 
-    //     expect(resultado[0]).toHaveProperty("id"); 
-    //     expect(resultado[0]).toHaveProperty("nome");
-    //     expect(resultado[0]).toHaveProperty("preco");
-    //     expect(resultado[0]).toHaveProperty("estoque");
-    //     expect(resultado[0]).toHaveProperty("categoria");
-    // });
+        expect(resultado[0]).toHaveProperty("id"); //Verficação se o campo existe dentro do array 
+        expect(resultado[0]).toHaveProperty("nome");
+        expect(resultado[0]).toHaveProperty("preco");
+        expect(resultado[0]).toHaveProperty("estoque");
+        expect(resultado[0]).toHaveProperty("categoria");
+    });
+
+    // acompanha corretamente as alterações no sistema, 
+    // garantindo que novos produtos adicionados sejam refletidos na lista
+    test("deve atualizar a lista após adicionar novos produtos", () => {
+
+        const produto1 = {
+            id: 1,
+            nome: "Bola",
+            preco: 50,
+            estoque: 10,
+            categoria: "Esporte"
+        };
+
+        cadastrarProduto(produto1);
+
+        let resultado = listarProdutos();
+        expect(resultado).toHaveLength(1);
+
+        const produto2 = {
+            id: 2,
+            nome: "Chuteira",
+            preco: 200,
+            estoque: 5,
+            categoria: "Esporte"
+        };
+
+        cadastrarProduto(produto2);
+
+        resultado = listarProdutos();
+
+        expect(resultado).toHaveLength(2);
+        expect(resultado).toContainEqual(produto2);
+
+    });
 });
 
 
