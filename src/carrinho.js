@@ -69,7 +69,7 @@ function calcularSubtotal(carrinho) {
   return total;
 }
 
-export {
+module.exports =  {
   adicionarAoCarrinho,
   removerDoCarrinho,
   calcularSubtotal

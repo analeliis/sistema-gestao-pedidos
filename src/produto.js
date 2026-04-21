@@ -80,7 +80,7 @@ function buscarProdutoPorId(id) {
 }
 
 // Exporta funções para uso em outros arquivos
-export {
+module.exports = {
   produtos,
   cadastrarProduto,
   excluirProduto,
