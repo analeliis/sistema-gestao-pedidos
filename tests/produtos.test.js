@@ -23,7 +23,7 @@ describe("Função Cadastrar Produto", () => {
         expect(resultado).toEqual(produto);
 
         //verificar se o array contem os elementos ou seja se foi armazenado
-        expect(produtos).toContainEqual(produto);
+        expect(produtos).toContainEqual(produto); //verificando se o array contém um objeto com mesmos valores
     });
 
     test("Verificar se o produto foi informado", () => {
@@ -68,7 +68,7 @@ describe("Função Cadastrar Produto", () => {
         const resultado = cadastrarProduto(produto);
 
         expect(resultado).toEqual(produto); //verificando o retorno
-        expect(produtos).toContainEqual(produto); //verificar se o array contem os elementos ou seja se foi armazenado
+        expect(produtos).toContainEqual(produto); //verificando se o array contém um objeto com mesmos valores
     });
 
     test("deve retornar não permitir estoque negativo", () => {
@@ -96,7 +96,7 @@ describe("Função Cadastrar Produto", () => {
         const resultado = cadastrarProduto(produto);
 
         expect(resultado).toEqual(produto); //verificando o retorno
-        expect(produtos).toContainEqual(produto); //verificar se o array contem os elementos ou seja se foi armazenado
+        expect(produtos).toContainEqual(produto); //verificando se o array contém um objeto com mesmos valores
     });
 });
 
@@ -132,12 +132,33 @@ describe("Função Listar Produtos", () => {
         cadastrarProduto(produto1); //aqui estamos cadastrando os produtos
         cadastrarProduto(produto2);
 
-        const resultado = listarProdutos(); 
+        const resultado = listarProdutos();
 
         expect(resultado).toHaveLength(2); // verificando a tamanho do array 
-        expect(resultado).toContainEqual(produto1); //verificando se os produtos foram armazenados no array
+        expect(resultado).toContainEqual(produto1); //verificando se o array contém um objeto com mesmos valores
         expect(resultado).toContainEqual(produto2);
     });
+
+    // // Testa se os dados retornados possuem as propriedades corretas
+    // test("deve manter estrutura dos produtos", () => {
+    //     const produto = {
+    //         id: 3,
+    //         nome: "Caneleira",
+    //         preco: 50,
+    //         estoque: 20,
+    //         categoria: "Esporte"
+    //     };
+
+    //     cadastrarProduto(produto);
+
+    //     const resultado = listarProdutos();
+
+    //     expect(resultado[0]).toHaveProperty("id"); 
+    //     expect(resultado[0]).toHaveProperty("nome");
+    //     expect(resultado[0]).toHaveProperty("preco");
+    //     expect(resultado[0]).toHaveProperty("estoque");
+    //     expect(resultado[0]).toHaveProperty("categoria");
+    // });
 });
 
 
