@@ -367,6 +367,82 @@ describe("Função Excluir Produto", () => {
         expect(produtos[0]).toEqual(produto2);
     });
 
+});
+
+describe("Função Editar Produto", () => {
+    beforeEach(() => {
+        produtos.length = 0;
+    }); //limpando o array antes de cada teste , garantido que cada test comece com o array vazio para não gerar conflito
+
+    test("deve editar um produto existente", () => {
+        const produto = {
+            id: 31,
+            nome: "Barraca de Camping",
+            preco: 200,
+            estoque: 10,
+            categoria: "Esporte Ao Ar Livre"
+        };
+
+        cadastrarProduto(produto);
+
+        const novosDados = {
+            nome: "Bola Profissional",
+            preco: 80
+        };
+
+        const resultado = editarProduto(31, novosDados);
+
+        expect(resultado.nome).toBe("Bola Profissional"); //comparando o conteúdo
+        expect(resultado.preco).toBe(80);
+    });
+
+    test("deve lançar erro quando o produto não existir", () => {
+        const novosDados = {
+            nome: "Produto Atualizado",
+            preco: 100
+        };
+
+        expect(() => editarProduto(38, novosDados)).toThrow("Produto não encontrado");
+    });
+
+    test("deve lançar erro ao tentar atualizar com preço negativo", () => {
+        const produto = {
+            id: 30,
+            nome: "Bicicleta",
+            preco: 1.500,
+            estoque: 80,
+            categoria: "Esporte Livre"
+        };
+
+        cadastrarProduto(produto);
+
+        const novosDados = {
+            preco: -20
+        };
+
+        expect(() => editarProduto(30, novosDados))
+            .toThrow("Preço não pode ser negativo");
+    });
+
+    test("deve lançar erro ao tentar atualizar com estoque negativo", () => {
+        const produto = {
+            id: 21,
+            nome: "Bermuda",
+            preco: 200,
+            estoque: 5,
+            categoria: "Roupa"
+        };
+
+        cadastrarProduto(produto);
+
+        const novosDados = {
+            estoque: -10
+        };
+
+        expect(() => editarProduto(21, novosDados))
+            .toThrow("Estoque não pode ser negativo");
+    });
+
 
 });
 

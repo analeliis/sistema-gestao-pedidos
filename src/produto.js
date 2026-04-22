@@ -73,7 +73,7 @@ function editarProduto(id, novosDados) {
     throw new Error("Estoque não pode ser negativo");
   }
 
-  // atualiza os dados
+  // atualiza o objeto produto com os novos valores ou seja pega tudo que tem em novosDados e joga dentro do objeto produto substituindo os valores
   Object.assign(produto, novosDados);
 
   // retorna o produto atualizado
