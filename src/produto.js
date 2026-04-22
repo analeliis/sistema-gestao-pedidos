@@ -35,14 +35,24 @@ function cadastrarProduto(produto) {
 
 
 function excluirProduto(id) {
-  const indice = produtos.findIndex(produto => produto.id === id);
 
-  if (indice === -1) {
-    throw new Error("Produto não encontrado");
+  let produtoRemovido = null;
+
+  for (let i = 0; i < produtos.length; i++) {
+    if (produtos[i].id === id) {
+      produtoRemovido = produtos[i];
+      produtos.splice(i, 1); //remove 1 item do array 
+      break;
+    }
   }
 
-  return produtos.splice(indice, 1)[0];
+  if (!produtoRemovido) {
+    throw new Error("Produto não encontrado"); //interrompe a execução e retorna um erro
+  }
+
+  return produtoRemovido;
 }
+
 
 function editarProduto(id, novosDados) {
   // procura o produto
@@ -53,12 +63,12 @@ function editarProduto(id, novosDados) {
     throw new Error("Produto não encontrado");
   }
 
-  // valida preço 
+  // valida preço NovosDados
   if (novosDados.preco !== undefined && novosDados.preco < 0) {
     throw new Error("Preço não pode ser negativo");
   }
 
-  // valida estoque 
+  // valida estoque  NovosDados
   if (novosDados.estoque !== undefined && novosDados.estoque < 0) {
     throw new Error("Estoque não pode ser negativo");
   }
@@ -76,7 +86,7 @@ function listarProdutos() {
 }
 
 function buscarProdutoPorId(id) {
-  return produtos.find(produto => produto.id === id);
+  return produtos.find(produto => produto.id === id); //procura o produto pelo id e retorna 
 }
 
 // Exporta funções para uso em outros arquivos
