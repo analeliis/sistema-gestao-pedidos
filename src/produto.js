@@ -53,12 +53,12 @@ function editarProduto(id, novosDados) {
     throw new Error("Produto não encontrado");
   }
 
-  // valida preço (se vier no novo dado)
+  // valida preço 
   if (novosDados.preco !== undefined && novosDados.preco < 0) {
     throw new Error("Preço não pode ser negativo");
   }
 
-  // valida estoque (se vier no novo dado)
+  // valida estoque 
   if (novosDados.estoque !== undefined && novosDados.estoque < 0) {
     throw new Error("Estoque não pode ser negativo");
   }

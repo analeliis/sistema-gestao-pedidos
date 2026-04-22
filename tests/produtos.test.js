@@ -154,7 +154,7 @@ describe("Função Listar Produtos", () => {
 
         const resultado = listarProdutos();
 
-        expect(resultado[0]).toHaveProperty("id"); //Verficação se o campo existe dentro do array 
+        expect(resultado[0]).toHaveProperty("id");  //Verficação se o campo existe dentro do array 
         expect(resultado[0]).toHaveProperty("nome");
         expect(resultado[0]).toHaveProperty("preco");
         expect(resultado[0]).toHaveProperty("estoque");
