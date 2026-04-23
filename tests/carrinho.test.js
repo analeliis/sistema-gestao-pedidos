@@ -1,5 +1,8 @@
 const { adicionarAoCarrinho, removerDoCarrinho, calcularSubtotal } = require("../src/carrinho"); //importando as funções 
 
+  // =====================================================
+  // FUNÇÃO 1: Função Adicionar ao Carrinho
+  // =====================================================
 describe("Função Adicionar ao Carrinho", () => {
     let carrinho;
 
@@ -7,7 +10,7 @@ describe("Função Adicionar ao Carrinho", () => {
         carrinho = [];
     }); //limpado o array 
 
-    test("deve adicionar um produto ao carrinho", () => {
+    test("CT-01: deve adicionar um produto ao carrinho", () => {
         const produto = {
             id: 1,
             nome: "Bola de Futebol",
@@ -23,7 +26,7 @@ describe("Função Adicionar ao Carrinho", () => {
         expect(resultado[0].quantidade).toBe(2);
     });
 
-    test("deve lançar erro quando a quantidade for menor ou igual a zero", () => {
+    test("CT-02:deve lançar erro quando a quantidade for menor ou igual a zero", () => {
         const produto = {
             id: 2,
             nome: "Chuteira",
@@ -36,7 +39,7 @@ describe("Função Adicionar ao Carrinho", () => {
             .toThrow("Quantidade deve ser maior que 0");
     });
 
-    test("deve lançar erro quando o produto estiver sem estoque", () => {
+    test("CT-03: deve lançar erro quando o produto estiver sem estoque", () => {
         const produto = {
             id: 3,
             nome: "Camisa",
@@ -49,7 +52,7 @@ describe("Função Adicionar ao Carrinho", () => {
             .toThrow("Produto sem estoque");
     });
 
-    test("deve lançar erro quando a quantidade for maior que o estoque", () => {
+    test("CT-04: deve lançar erro quando a quantidade for maior que o estoque", () => {
         const produto = {
             id: 4,
             nome: "Tênis",
@@ -62,7 +65,7 @@ describe("Função Adicionar ao Carrinho", () => {
             .toThrow("Estoque insuficiente");
     });
 
-    test("deve lançar erro quando o carrinho for inválido", () => {
+    test("CT-05: deve lançar erro quando o carrinho for inválido", () => {
         const produto = {
             id: 5,
             nome: "Luva",
@@ -75,12 +78,12 @@ describe("Função Adicionar ao Carrinho", () => {
             .toThrow("Carrinho inválido");
     });
 
-    test("deve lançar erro quando o produto for inválido", () => {
+    test("CT-06: deve lançar erro quando o produto for inválido", () => {
         expect(() => adicionarAoCarrinho(carrinho, null, 1))
             .toThrow("Produto inválido");
     });
 
-    test("deve reduzir o estoque do produto após adicionar ao carrinho", () => {
+    test("CT-07: deve reduzir o estoque do produto após adicionar ao carrinho", () => {
         const produto = {
             id: 6,
             nome: "Meia",
@@ -94,7 +97,7 @@ describe("Função Adicionar ao Carrinho", () => {
         expect(produto.estoque).toBe(5);
     });
 
-    test("deve somar a quantidade quando o produto já estiver no carrinho", () => {
+    test("CT-08: deve somar a quantidade quando o produto já estiver no carrinho", () => {
         const produto = {
             id: 7,
             nome: "Garrafa",
@@ -112,6 +115,10 @@ describe("Função Adicionar ao Carrinho", () => {
 
 });
 
+  // =====================================================
+  // FUNÇÃO 2: Função Remover do Carrinho
+  // =====================================================
+
 describe("Função Remover do Carrinho", () => {
     let carrinho;
 
@@ -119,7 +126,8 @@ describe("Função Remover do Carrinho", () => {
         carrinho = [];
     }); //limpando o array antes de cada teste , garantido que cada test comece com o array vazio para não gerar conflito
 
-    test("deve remover um produto do carrinho", () => {
+    
+    test("CT-09: deve remover um produto do carrinho", () => {
         const produto = {
             id: 1,
             nome: "Bola",
@@ -135,12 +143,12 @@ describe("Função Remover do Carrinho", () => {
         expect(resultado).toHaveLength(0);
     });
 
-    test("deve lançar erro quando o produto não estiver no carrinho", () => {
+    test("CT-10: deve lançar erro quando o produto não estiver no carrinho", () => {
         expect(() => removerDoCarrinho(carrinho, 10))
             .toThrow("Produto não está no carrinho");
     });
 
-    test("deve devolver a quantidade removida ao estoque do produto", () => {
+    test("CT-11: deve devolver a quantidade removida ao estoque do produto", () => {
         const produto = {
             id: 2,
             nome: "Chuteira",
@@ -156,7 +164,7 @@ describe("Função Remover do Carrinho", () => {
         expect(produto.estoque).toBe(10);
     });
 
-    test("deve lançar erro quando o carrinho for inválido", () => {
+    test("CT-12: deve lançar erro quando o carrinho for inválido", () => {
         expect(() => removerDoCarrinho(null, 1))
             .toThrow("Carrinho inválido");
     });
@@ -164,6 +172,9 @@ describe("Função Remover do Carrinho", () => {
 
 });
 
+  // =====================================================
+  // FUNÇÃO 3: Função Calcular Subtotal
+  // =====================================================
 describe("Função Calcular Subtotal", () => {
     let carrinho;
 
@@ -171,7 +182,7 @@ describe("Função Calcular Subtotal", () => {
         carrinho = [];
     }); //limpando o array antes de cada teste , garantido que cada test comece com o array vazio para não gerar conflito
 
-    test("deve calcular corretamente o subtotal do carrinho", () => {
+    test("CT-13: deve calcular corretamente o subtotal do carrinho", () => {
         carrinho = [
             {
                 produto: {
@@ -201,18 +212,18 @@ describe("Função Calcular Subtotal", () => {
     });
 
 
-    test("deve retornar 0 quando o carrinho estiver vazio", () => {
+    test("CT-14: deve retornar 0 quando o carrinho estiver vazio", () => {
         const resultado = calcularSubtotal(carrinho);
 
         expect(resultado).toBe(0);
     });
 
-    test("deve lançar erro quando o carrinho for inválido", () => {
+    test("CT-15: deve lançar erro quando o carrinho for inválido", () => {
         expect(() => calcularSubtotal(null))
             .toThrow("Carrinho inválido");
     });
 
-    test("deve calcular corretamente com apenas um item no carrinho", () => {
+    test("CT-16: deve calcular corretamente com apenas um item no carrinho", () => {
         carrinho = [
             {
                 produto: {
