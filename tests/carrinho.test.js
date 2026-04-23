@@ -1,0 +1,113 @@
+const { adicionarAoCarrinho, removerDoCarrinho, calcularSubtotal } = require("../src/carrinho"); //importando as funções 
+
+describe("Função Adicionar ao Carrinho", () => {
+    let carrinho;
+
+    beforeEach(() => {
+        carrinho = [];
+    }); //limpado o array 
+
+    test("deve adicionar um produto ao carrinho", () => {
+        const produto = {
+            id: 1,
+            nome: "Bola de Futebol",
+            preco: 100,
+            estoque: 10,
+            categoria: "Esporte"
+        };
+
+        const resultado = adicionarAoCarrinho(carrinho, produto, 2);
+
+        expect(resultado).toHaveLength(1); //quantidade de elementos que possui o array
+        expect(resultado[0].produto).toEqual(produto); //comparando o conteudo 
+        expect(resultado[0].quantidade).toBe(2);
+    });
+
+    test("deve lançar erro quando a quantidade for menor ou igual a zero", () => {
+        const produto = {
+            id: 2,
+            nome: "Chuteira",
+            preco: 200,
+            estoque: 10,
+            categoria: "Esporte"
+        };
+
+        expect(() => adicionarAoCarrinho(carrinho, produto, 0))
+            .toThrow("Quantidade deve ser maior que 0");
+    });
+
+    test("deve lançar erro quando o produto estiver sem estoque", () => {
+        const produto = {
+            id: 3,
+            nome: "Camisa",
+            preco: 80,
+            estoque: 0,
+            categoria: "Roupa"
+        };
+
+        expect(() => adicionarAoCarrinho(carrinho, produto, 1))
+            .toThrow("Produto sem estoque");
+    });
+
+    test("deve lançar erro quando a quantidade for maior que o estoque", () => {
+        const produto = {
+            id: 4,
+            nome: "Tênis",
+            preco: 300,
+            estoque: 2,
+            categoria: "Calçados"
+        };
+
+        expect(() => adicionarAoCarrinho(carrinho, produto, 5))
+            .toThrow("Estoque insuficiente");
+    });
+
+    test("deve lançar erro quando o carrinho for inválido", () => {
+        const produto = {
+            id: 5,
+            nome: "Luva",
+            preco: 50,
+            estoque: 10,
+            categoria: "Esporte"
+        };
+
+        expect(() => adicionarAoCarrinho(null, produto, 1))
+            .toThrow("Carrinho inválido");
+    });
+
+    test("deve lançar erro quando o produto for inválido", () => {
+        expect(() => adicionarAoCarrinho(carrinho, null, 1))
+            .toThrow("Produto inválido");
+    });
+
+    test("deve reduzir o estoque do produto após adicionar ao carrinho", () => {
+        const produto = {
+            id: 6,
+            nome: "Meia",
+            preco: 20,
+            estoque: 8,
+            categoria: "Esporte"
+        };
+
+        adicionarAoCarrinho(carrinho, produto, 3);
+
+        expect(produto.estoque).toBe(5);
+    });
+
+    test("deve somar a quantidade quando o produto já estiver no carrinho", () => {
+        const produto = {
+            id: 7,
+            nome: "Garrafa",
+            preco: 30,
+            estoque: 10,
+            categoria: "Esporte"
+        };
+
+        adicionarAoCarrinho(carrinho, produto, 2);
+        adicionarAoCarrinho(carrinho, produto, 3);
+
+        expect(carrinho).toHaveLength(1);
+        expect(carrinho[0].quantidade).toBe(5);
+    });
+
+});

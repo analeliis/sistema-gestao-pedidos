@@ -11,6 +11,10 @@ function adicionarAoCarrinho(carrinho, produto, quantidade) {
     throw new Error("Quantidade deve ser maior que 0");
   }
 
+  if (produto.estoque <= 0) {
+    throw new Error("Produto sem estoque");
+  }
+
   if (produto.estoque < quantidade) {
     throw new Error("Estoque insuficiente");
   }
@@ -69,7 +73,7 @@ function calcularSubtotal(carrinho) {
   return total;
 }
 
-module.exports =  {
+module.exports = {
   adicionarAoCarrinho,
   removerDoCarrinho,
   calcularSubtotal
