@@ -111,3 +111,125 @@ describe("Função Adicionar ao Carrinho", () => {
     });
 
 });
+
+describe("Função Remover do Carrinho", () => {
+    let carrinho;
+
+    beforeEach(() => {
+        carrinho = [];
+    }); //limpando o array antes de cada teste , garantido que cada test comece com o array vazio para não gerar conflito
+
+    test("deve remover um produto do carrinho", () => {
+        const produto = {
+            id: 1,
+            nome: "Bola",
+            preco: 100,
+            estoque: 10,
+            categoria: "Esporte"
+        };
+
+        adicionarAoCarrinho(carrinho, produto, 2);
+
+        const resultado = removerDoCarrinho(carrinho, 1);
+
+        expect(resultado).toHaveLength(0);
+    });
+
+    test("deve lançar erro quando o produto não estiver no carrinho", () => {
+        expect(() => removerDoCarrinho(carrinho, 10))
+            .toThrow("Produto não está no carrinho");
+    });
+
+    test("deve devolver a quantidade removida ao estoque do produto", () => {
+        const produto = {
+            id: 2,
+            nome: "Chuteira",
+            preco: 200,
+            estoque: 10,
+            categoria: "Esporte"
+        };
+
+        adicionarAoCarrinho(carrinho, produto, 3);
+
+        removerDoCarrinho(carrinho, 2);
+
+        expect(produto.estoque).toBe(10);
+    });
+
+    test("deve lançar erro quando o carrinho for inválido", () => {
+        expect(() => removerDoCarrinho(null, 1))
+            .toThrow("Carrinho inválido");
+    });
+
+
+});
+
+describe("Função Calcular Subtotal", () => {
+    let carrinho;
+
+    beforeEach(() => {
+        carrinho = [];
+    }); //limpando o array antes de cada teste , garantido que cada test comece com o array vazio para não gerar conflito
+
+    test("deve calcular corretamente o subtotal do carrinho", () => {
+        carrinho = [
+            {
+                produto: {
+                    id: 1,
+                    nome: "caneleira",
+                    preco: 100,
+                    estoque: 10,
+                    categoria: "Esporte"
+                },
+                quantidade: 2
+            },
+            {
+                produto: {
+                    id: 2,
+                    nome: "golzinho",
+                    preco: 200,
+                    estoque: 5,
+                    categoria: "Esporte"
+                },
+                quantidade: 1
+            }
+        ];
+
+        const resultado = calcularSubtotal(carrinho);
+
+        expect(resultado).toBe(400);
+    });
+
+
+    test("deve retornar 0 quando o carrinho estiver vazio", () => {
+        const resultado = calcularSubtotal(carrinho);
+
+        expect(resultado).toBe(0);
+    });
+
+    test("deve lançar erro quando o carrinho for inválido", () => {
+        expect(() => calcularSubtotal(null))
+            .toThrow("Carrinho inválido");
+    });
+
+    test("deve calcular corretamente com apenas um item no carrinho", () => {
+        carrinho = [
+            {
+                produto: {
+                    id: 5,
+                    nome: "Luva",
+                    preco: 50,
+                    estoque: 10,
+                    categoria: "Esporte"
+                },
+                quantidade: 3
+            }
+        ];
+
+        const resultado = calcularSubtotal(carrinho);
+
+        expect(resultado).toBe(150);
+    });
+
+
+});
