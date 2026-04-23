@@ -1,8 +1,8 @@
 const { adicionarAoCarrinho, removerDoCarrinho, calcularSubtotal } = require("../src/carrinho"); //importando as funções 
 
-  // =====================================================
-  // FUNÇÃO 1: Função Adicionar ao Carrinho
-  // =====================================================
+// =====================================================
+// FUNÇÃO 1: Função Adicionar ao Carrinho
+// =====================================================
 describe("Função Adicionar ao Carrinho", () => {
     let carrinho;
 
@@ -115,9 +115,9 @@ describe("Função Adicionar ao Carrinho", () => {
 
 });
 
-  // =====================================================
-  // FUNÇÃO 2: Função Remover do Carrinho
-  // =====================================================
+// =====================================================
+// FUNÇÃO 2: Função Remover do Carrinho
+// =====================================================
 
 describe("Função Remover do Carrinho", () => {
     let carrinho;
@@ -126,7 +126,7 @@ describe("Função Remover do Carrinho", () => {
         carrinho = [];
     }); //limpando o array antes de cada teste , garantido que cada test comece com o array vazio para não gerar conflito
 
-    
+
     test("CT-09: deve remover um produto do carrinho", () => {
         const produto = {
             id: 1,
@@ -172,9 +172,9 @@ describe("Função Remover do Carrinho", () => {
 
 });
 
-  // =====================================================
-  // FUNÇÃO 3: Função Calcular Subtotal
-  // =====================================================
+// =====================================================
+// FUNÇÃO 3: Função Calcular Subtotal
+// =====================================================
 describe("Função Calcular Subtotal", () => {
     let carrinho;
 
