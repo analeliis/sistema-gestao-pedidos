@@ -20,8 +20,8 @@ describe("Função Aplicar Cupom", () => {
     });
 
     test("deve aplicar desconto de 20% com o cupom VINTEOFF", () => {
-    const resultado = aplicarCupom(200, "VINTEOFF");
+        const resultado = aplicarCupom(200, "VINTEOFF");
 
-    expect(resultado).toBe(160);
-});
+        expect(resultado).toBe(160);
+    });
 }); 
