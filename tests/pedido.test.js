@@ -92,7 +92,7 @@ describe('Testes do módulo pedido.js', () => {
         .toThrow('Dados do cliente incompletos');
     });
 
-    test('CT-12: deve retornar frete grátis quando o subtotal mockado for suficiente', () => {
+    test('CT-12: deve retornar frete grátis quando o subtotal for suficiente', () => {
       calcularSubtotal.mockReturnValue(300);
 
       const pedido = fecharPedido(clienteValido, carrinhoValido, null);
