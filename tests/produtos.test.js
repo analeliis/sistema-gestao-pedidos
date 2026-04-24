@@ -1,6 +1,9 @@
 const { produtos, cadastrarProduto, excluirProduto, editarProduto, listarProdutos,
     buscarProdutoPorId } = require("../src/produto"); //importando as funções 
 
+// =====================================================
+// FUNÇÃO 1: Função Cadastrar Produto
+// =====================================================
 describe("Função Cadastrar Produto", () => {
 
     //limpando o array antes de cada teste , garantido que cada test comece com o array vazio para não gerar conflito
@@ -8,7 +11,7 @@ describe("Função Cadastrar Produto", () => {
         produtos.length = 0;
     });
 
-    test("Verificar se o produto é valido", () => {
+    test("CT-1: Verificar se o produto é valido", () => {
         const produto = {
             id: 1,
             nome: "Bola de Basquete",
@@ -26,12 +29,12 @@ describe("Função Cadastrar Produto", () => {
         expect(produtos).toContainEqual(produto); //verificando se o array contém um objeto com mesmos valores
     });
 
-    test("Verificar se o produto foi informado", () => {
+    test("CT-2: Verificar se o produto foi informado", () => {
         expect(() => cadastrarProduto()) //ao executar essa função, ela lance um erro com a mensagem ‘Produto não informado’”
             .toThrow("Produto não informado");
     });
 
-    test("Verificar campos obrigatórios", () => {
+    test("CT-3: Verificar campos obrigatórios", () => {
         const produto = {
             id: 2,
             nome: "Blusa do Palmeiras",
@@ -42,7 +45,7 @@ describe("Função Cadastrar Produto", () => {
         expect(() => cadastrarProduto(produto)).toThrow("Todos os campos do produto são obrigatórios"); //ao executar essa função, ela lance um erro com a mensagem ‘Todos os campos do produto são obrigatórios’”
     });
 
-    test("deve retorna Preço não pode ser negativo", () => {
+    test("CT-4: deve lança erro e retorna 'Preço não pode ser negativo' quando o preço for negativo", () => {
         const produto = {
             id: 3,
             nome: "Equipamento para futsal",
@@ -56,7 +59,7 @@ describe("Função Cadastrar Produto", () => {
     });
 
 
-    test("deve permite cadastrar produtos com o preço zero", () => {
+    test("CT-5: deve permite cadastrar produtos com o preço zero", () => {
         const produto = {
             id: 4,
             nome: "Apito de Treino",
@@ -71,7 +74,7 @@ describe("Função Cadastrar Produto", () => {
         expect(produtos).toContainEqual(produto); //verificando se o array contém um objeto com mesmos valores
     });
 
-    test("deve retornar não permitir estoque negativo", () => {
+    test("CT-6: deve retornar não permitir estoque negativo", () => {
         const produto = {
             id: 5,
             nome: "Meião",
@@ -84,7 +87,7 @@ describe("Função Cadastrar Produto", () => {
         expect(() => cadastrarProduto(produto)).toThrow("Estoque não pode ser negativo"); //ao executar essa função, ela lance um erro com a mensagem "deve retornar não permitir estoque negativo”
     });
 
-    test("deve permitir cadastrar produto com estoque zero", () => {
+    test("CT-7: deve permitir cadastrar produto com estoque zero", () => {
         const produto = {
             id: 6,
             nome: "Garrafa Esportiva",
@@ -100,19 +103,22 @@ describe("Função Cadastrar Produto", () => {
     });
 });
 
+// =====================================================
+// FUNÇÃO 2: Função Listar Produto
+// =====================================================
 describe("Função Listar Produtos", () => {
     beforeEach(() => {
         produtos.length = 0;
     }); //limpando o array antes de cada teste , garantido que cada test comece com o array vazio para não gerar conflito
 
-    test("deve retornar lista vazia quando não houver produtos cadastrados", () => {
+    test("CT-8: deve retornar lista vazia quando não houver produtos cadastrados", () => {
         const resultado = listarProdutos();
 
         expect(resultado).toEqual([]); //comparando o contéudo
         expect(resultado).toHaveLength(0); // verificar o tamanho do array 
     });
 
-    test("deve retornar a lista com os produtos cadastrados", () => {
+    test("CT-9: deve retornar a lista com os produtos cadastrados", () => {
         const produto1 = {
             id: 7,
             nome: "Bola de Vôlei",
@@ -141,7 +147,7 @@ describe("Função Listar Produtos", () => {
 
     // Testa se os dados retornados possuem as propriedades corretas
     // Verificar integridade dos dados
-    test("deve manter estrutura dos produtos", () => {
+    test("CT-10: deve manter estrutura dos produtos", () => {
         const produto = {
             id: 9,
             nome: "Caneleira",
@@ -163,7 +169,7 @@ describe("Função Listar Produtos", () => {
 
     // acompanha corretamente as alterações no sistema, 
     // garantindo que novos produtos adicionados sejam refletidos na lista
-    test("deve atualizar a lista após adicionar novos produtos", () => {
+    test("CT-11: deve atualizar a lista após adicionar novos produtos", () => {
 
         const produto1 = {
             id: 10,
@@ -196,12 +202,15 @@ describe("Função Listar Produtos", () => {
     });
 });
 
+// =====================================================
+// FUNÇÃO 3: Função Buscar Produto Por Id
+// =====================================================
 describe("Função Buscar Produto Por Id", () => {
     beforeEach(() => {
         produtos.length = 0;
     }); //limpando o array antes de cada teste , garantido que cada test comece com o array vazio para não gerar conflito
 
-    test("deve retornar o produto quando o id existir", () => {
+    test("CT-12: deve retornar o produto quando o id existir", () => {
         const produto = {
             id: 12,
             nome: "Bola de Futebol",
@@ -218,7 +227,7 @@ describe("Função Buscar Produto Por Id", () => {
     });
 
 
-    test("deve retornar undefined quando o id não existir", () => {
+    test("CT-13: deve retornar undefined quando o id não existir", () => {
         const produto = {
             id: 13,
             nome: "Chuteira",
@@ -234,7 +243,7 @@ describe("Função Buscar Produto Por Id", () => {
         expect(resultado).toBeUndefined(); //expectativa que o resultado não tenha valor nenhum
     });
 
-    test("deve retornar o produto correto em meio a vários produtos", () => {
+    test("CT-14: deve retornar o produto correto em meio a vários produtos", () => {
         const produto1 = {
             id: 14,
             nome: "Medalhas",
@@ -268,7 +277,7 @@ describe("Função Buscar Produto Por Id", () => {
         expect(resultado).toEqual(produto3);
     });
 
-    test("deve retornar undefined quando não houver produtos cadastrados", () => {
+    test("CT-15: deve retornar undefined quando não houver produtos cadastrados", () => {
         const resultado = buscarProdutoPorId(1);
 
         expect(resultado).toBeUndefined(); //expectativa que o resultado não tenha valor nenhum
@@ -276,13 +285,16 @@ describe("Função Buscar Produto Por Id", () => {
 
 });
 
+// =====================================================
+// FUNÇÃO 4: Função Excluir Produto
+// =====================================================
 describe("Função Excluir Produto", () => {
     beforeEach(() => {
         produtos.length = 0;
     }); //limpando o array antes de cada teste , garantido que cada test comece com o array vazio para não gerar conflito
 
 
-    test("deve excluir um produto existente", () => {
+    test("CT-16: deve excluir um produto existente", () => {
         const produto = {
             id: 17,
             nome: "Bola Society",
@@ -299,13 +311,13 @@ describe("Função Excluir Produto", () => {
         expect(produtos).toHaveLength(0); //verificar quantos elementos tem no array 
     });
 
-    test("deve lançar erro quando o produto não existir", () => {
+    test("CT-17: deve lançar erro quando o produto não existir", () => {
         expect(() => excluirProduto(45)).toThrow("Produto não encontrado"); //verifica se o erro aconteceu  
     });                                                                  //sem função anonima o jest não conseguiria verificar o erro 
     // o Jest executa a função e consegue capturar e comparar o erro corretamente.
 
 
-    test("deve excluir o produto correto em meio a vários produtos", () => {
+    test("CT-18: deve excluir o produto correto em meio a vários produtos", () => {
         const produto1 = {
             id: 20,
             nome: "Peso de academia",
@@ -341,7 +353,7 @@ describe("Função Excluir Produto", () => {
     });
 
     //verificar se os produtos restantes continuam no array depois da exclusão.
-    test("deve manter os outros produtos no array após excluir um item", () => {
+    test("CT-19: deve manter os outros produtos no array após excluir um item", () => {
         const produto1 = {
             id: 30,
             nome: "Bicicleta",
@@ -369,12 +381,15 @@ describe("Função Excluir Produto", () => {
 
 });
 
+// =====================================================
+// FUNÇÃO 5: Função Editar Produto
+// =====================================================
 describe("Função Editar Produto", () => {
     beforeEach(() => {
         produtos.length = 0;
     }); //limpando o array antes de cada teste , garantido que cada test comece com o array vazio para não gerar conflito
 
-    test("deve editar um produto existente", () => {
+    test("CT-20: deve editar um produto existente", () => {
         const produto = {
             id: 31,
             nome: "Barraca de Camping",
@@ -396,7 +411,7 @@ describe("Função Editar Produto", () => {
         expect(resultado.preco).toBe(80);
     });
 
-    test("deve lançar erro quando o produto não existir", () => {
+    test("CT-21: deve lançar erro quando o produto não existir", () => {
         const novosDados = {
             nome: "Produto Atualizado",
             preco: 100
@@ -405,7 +420,7 @@ describe("Função Editar Produto", () => {
         expect(() => editarProduto(38, novosDados)).toThrow("Produto não encontrado");
     });
 
-    test("deve lançar erro ao tentar atualizar com preço negativo", () => {
+    test("CT-22: deve lançar erro ao tentar atualizar com preço negativo", () => {
         const produto = {
             id: 30,
             nome: "Bicicleta",
@@ -424,7 +439,7 @@ describe("Função Editar Produto", () => {
             .toThrow("Preço não pode ser negativo");
     });
 
-    test("deve lançar erro ao tentar atualizar com estoque negativo", () => {
+    test("CT-23: deve lançar erro ao tentar atualizar com estoque negativo", () => {
         const produto = {
             id: 21,
             nome: "Bermuda",
