@@ -45,7 +45,7 @@ describe("Função Cadastrar Produto", () => {
         expect(() => cadastrarProduto(produto)).toThrow("Todos os campos do produto são obrigatórios"); //ao executar essa função, ela lance um erro com a mensagem ‘Todos os campos do produto são obrigatórios’”
     });
 
-    test("CT-4: deve retorna Preço não pode ser negativo", () => {
+    test("CT-4: deve lança erro e retorna 'Preço não pode ser negativo' quando o preço for negativo", () => {
         const produto = {
             id: 3,
             nome: "Equipamento para futsal",
