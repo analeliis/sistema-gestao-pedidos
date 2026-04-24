@@ -86,7 +86,7 @@ function listarProdutos() {
 }
 
 function buscarProdutoPorId(id) {
-  return produtos.find(produto => produto.id === id); //procura o produto pelo id e retorna 
+  return produtos.find(produto => produto.id === id); //Para cada produto do array, ele verifica se o id do produto é igual ao id que estamos procurando se não encontrar undefined
 }
 
 // Exporta funções para uso em outros arquivos
